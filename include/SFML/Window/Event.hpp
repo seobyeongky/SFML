@@ -55,6 +55,17 @@ public :
     };
 
     ////////////////////////////////////////////////////////////
+    /// \brief IME event
+    ///
+    ////////////////////////////////////////////////////////////
+    struct IMECompositionEvent
+    {
+		bool   done;	// composition done flag
+		Uint32 unicode;
+    };
+
+
+    ////////////////////////////////////////////////////////////
     /// \brief Keyboard event parameters (KeyPressed, KeyReleased)
     ///
     ////////////////////////////////////////////////////////////
@@ -151,6 +162,7 @@ public :
         Resized,                ///< The window was resized (data in event.size)
         LostFocus,              ///< The window lost the focus (no data)
         GainedFocus,            ///< The window gained the focus (no data)
+		IMEUpdated,				///< IME composition state updated (for MS windows)
         TextEntered,            ///< A character was entered (data in event.text)
         KeyPressed,             ///< A key was pressed (data in event.key)
         KeyReleased,            ///< A key was released (data in event.key)
@@ -177,6 +189,7 @@ public :
     union
     {
         SizeEvent            size;            ///< Size event parameters (Event::Resized)
+        IMECompositionEvent  ime;             ///< IME event parameters (Event::IMEUpdated)
         KeyEvent             key;             ///< Key event parameters (Event::KeyPressed, Event::KeyReleased)
         TextEvent            text;            ///< Text event parameters (Event::TextEntered)
         MouseMoveEvent       mouseMove;       ///< Mouse move event parameters (Event::MouseMoved)

@@ -520,6 +520,16 @@ void WindowImplWin32::processEvent(UINT message, WPARAM wParam, LPARAM lParam)
             break;
         }
 
+        case WM_IME_COMPOSITION:
+        {
+            Event event;
+            event.type = Event::IMEUpdated;
+			event.ime.unicode = static_cast<Uint32>(wParam);
+			event.ime.done = !(lParam & GCS_COMPSTR);
+            pushEvent(event);
+            break;
+        }
+
         // Text event
         case WM_CHAR :
         {
